@@ -57,13 +57,11 @@
       <b-button type="submit" variant="primary" :disabled="errors.any()">Register</b-button>
       <b-button type="reset" variant="light">Discard</b-button>
     </b-form>
-    <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ user }}</pre>
-    </b-card>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import { Validator } from 'vee-validate';
 import User from '../models/User';
 
@@ -86,8 +84,11 @@ export default {
         if (!isValid) {
           return;
         }
-        // eslint-disable-next-line
-        console.log('Submitted:', this.user);
+        axios
+          .post(`${process.env.VUE_APP_API_ENDPOINT}/user/register`, this.user)
+          .then(() => this.$router.push('login'))
+          // eslint-disable-next-line
+          .catch(error => window.alert(error));
       });
     },
     onReset(event) {
