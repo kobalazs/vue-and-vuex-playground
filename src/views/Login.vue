@@ -47,7 +47,7 @@ export default {
         return;
       }
       this.loading = true;
-      this.$store.dispatch('login', this.user).then(() => {
+      this.$store.dispatch('auth/login', this.user).then(() => {
         this.$router.push('/');
       }).catch((error) => {
         this.error = error;

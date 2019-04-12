@@ -30,7 +30,7 @@ export default new Router({
       name: 'task-list',
       component: () => import('./views/TaskList.vue'),
       beforeEnter: (_to, _from, next) => {
-        next(store.state.user ? true : '/');
+        next(store.state.auth.user ? true : '/');
       },
     },
     {

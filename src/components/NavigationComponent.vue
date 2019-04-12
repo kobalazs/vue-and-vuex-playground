@@ -25,11 +25,11 @@ export default {
   name: 'navigation',
   components: {},
   computed: mapState({
-    user: state => state.user,
+    user: state => state.auth.user,
   }),
   methods: {
     onClickLogout() {
-      this.$store.dispatch('logout').then(() => {
+      this.$store.dispatch('auth/logout').then(() => {
         this.$router.push('/');
       });
     },
