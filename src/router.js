@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+
+import store from './store';
 import Home from './views/Home.vue';
 
 Vue.use(Router);
@@ -22,6 +24,14 @@ export default new Router({
       path: '/registration',
       name: 'registration',
       component: () => import('./views/Registration.vue'),
+    },
+    {
+      path: '/task-list',
+      name: 'task-list',
+      component: () => import('./views/TaskList.vue'),
+      beforeEnter: (_to, _from, next) => {
+        next(store.state.user ? true : '/');
+      },
     },
     {
       path: '*',

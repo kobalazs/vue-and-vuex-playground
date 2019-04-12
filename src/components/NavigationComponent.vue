@@ -3,6 +3,7 @@
     <b-navbar-brand to="/">Playground</b-navbar-brand>
     <b-navbar-nav>
       <b-nav-item to="/">Home</b-nav-item>
+      <b-nav-item to="/task-list">Tasks</b-nav-item>
     </b-navbar-nav>
     <b-navbar-nav class="ml-auto" v-if="!user">
       <b-nav-item to="/registration">Registration</b-nav-item>
