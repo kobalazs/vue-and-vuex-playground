@@ -1,17 +1,22 @@
 <template>
   <div>
+    <b-spinner v-if="loading" variant="primary" class="float-right"></b-spinner>
     <h1>Tasks</h1>
-    <b-spinner v-if="loading" variant="primary"></b-spinner>
-    <b-list-group v-if="!loading">
+    <b-list-group>
       <b-list-group-item v-for="task in tasks" :key="task.id">
         {{ task.name }}
       </b-list-group-item>
     </b-list-group>
+    <b-button variant="outline-primary" class="mt-3" @click="addTask()">
+      Add new task
+    </b-button>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+
+import Task from '../models/Task';
 
 export default {
   name: 'task-list',
@@ -29,6 +34,18 @@ export default {
     loadTasks() {
       this.loading = true;
       this.$store.dispatch('task/list')
+        // eslint-disable-next-line
+        .catch(error => window.alert(error))
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    addTask() {
+      const task = new Task({
+        name: 'New Task',
+      });
+      this.loading = true;
+      this.$store.dispatch('task/create', task)
         // eslint-disable-next-line
         .catch(error => window.alert(error))
         .finally(() => {
