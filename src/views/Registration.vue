@@ -54,7 +54,10 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary" :disabled="errors.any()">Register</b-button>
+      <b-button type="submit" variant="primary" :disabled="errors.any() || loading">
+        Register
+        <b-spinner v-if="loading" small></b-spinner>
+      </b-button>
       <b-button type="reset" variant="light">Discard</b-button>
     </b-form>
   </div>
@@ -76,19 +79,27 @@ export default {
   data: () => ({
     user: new User(),
     passwordConfirmation: '',
+    loading: false,
   }),
   methods: {
     onSubmit(event) {
       event.preventDefault();
+      if (this.loading) {
+        return;
+      }
       this.$validator.validateAll().then((isValid) => {
         if (!isValid) {
           return;
         }
+        this.loading = true;
         axios
           .post(`${process.env.VUE_APP_API_ENDPOINT}/user/register`, this.user)
           .then(() => this.$router.push('login'))
           // eslint-disable-next-line
-          .catch(error => window.alert(error));
+          .catch(error => window.alert(error))
+          .finally(() => {
+            this.loading = false;
+          });
       });
     },
     onReset(event) {

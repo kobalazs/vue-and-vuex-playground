@@ -21,7 +21,10 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Log In</b-button>
+      <b-button type="submit" variant="primary" :disabled="loading">
+        Log In
+        <b-spinner v-if="loading" small></b-spinner>
+      </b-button>
     </b-form>
   </div>
 </template>
@@ -35,14 +38,21 @@ export default {
   data: () => ({
     user: new User(),
     error: '',
+    loading: false,
   }),
   methods: {
     onSubmit(event) {
       event.preventDefault();
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
       this.$store.dispatch('login', this.user).then(() => {
         this.$router.push('/');
       }).catch((error) => {
         this.error = error;
+      }).finally(() => {
+        this.loading = false;
       });
     },
   },
