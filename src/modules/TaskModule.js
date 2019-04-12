@@ -22,14 +22,14 @@ export default {
       });
     },
     create(context, task) {
-      return new Promise((resolve, reject) => {
-        http().post('/task', task).then(() => {
-          context.dispatch('list')
-            .then(resolve)
-            .catch(error => reject(error.response.data.error || 'Server Error'));
-        }).catch((error) => {
+      return new Promise(async (resolve, reject) => {
+        try {
+          await http().post('/task', task);
+          await context.dispatch('list');
+          resolve();
+        } catch (error) {
           reject(error.response.data.error || 'Server Error');
-        });
+        }
       });
     },
   },
