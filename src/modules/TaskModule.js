@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import http from '../http';
 
 export default {
   namespaced: true,
@@ -11,6 +11,15 @@ export default {
     },
   },
   actions: {
-    //
+    list(context) {
+      return new Promise((resolve, reject) => {
+        http().get('/task').then((response) => {
+          context.commit('setTasks', response.data);
+          resolve();
+        }).catch((error) => {
+          reject(error.response.data.error || 'Server Error');
+        });
+      });
+    },
   },
 };
