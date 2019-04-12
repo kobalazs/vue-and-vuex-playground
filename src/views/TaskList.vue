@@ -3,11 +3,22 @@
     <b-spinner v-if="loading" variant="primary" class="float-right"></b-spinner>
     <h1>Tasks</h1>
     <b-list-group>
-      <b-list-group-item v-for="task in tasks" :key="task.id">
+      <b-list-group-item
+        v-for="task in tasks"
+        :key="task.id"
+        class="d-flex flex-row align-items-center"
+      >
+        <b-form-checkbox
+          v-model="task.is_done"
+          @change="modifyTask(task)"
+          :disabled="loading"
+          class="float-left"
+        ></b-form-checkbox>
         <b-form-input
           v-model="task.name"
           @change="modifyTask(task)"
           :disabled="loading"
+          class="float-left"
         ></b-form-input>
       </b-list-group-item>
     </b-list-group>
