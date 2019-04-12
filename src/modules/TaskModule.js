@@ -21,10 +21,23 @@ export default {
         });
       });
     },
+
     create(context, task) {
       return new Promise(async (resolve, reject) => {
         try {
           await http().post('/task', task);
+          await context.dispatch('list');
+          resolve();
+        } catch (error) {
+          reject(error.response.data.error || 'Server Error');
+        }
+      });
+    },
+
+    modify(context, task) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          await http().put(`/task/${task.id}`, task);
           await context.dispatch('list');
           resolve();
         } catch (error) {
