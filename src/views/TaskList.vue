@@ -6,20 +6,8 @@
       <b-list-group-item
         v-for="task in tasks"
         :key="task.id"
-        class="d-flex flex-row align-items-center"
       >
-        <b-form-checkbox
-          v-model="task.is_done"
-          @change="modifyTask(task)"
-          :disabled="loading"
-          class="float-left"
-        ></b-form-checkbox>
-        <b-form-input
-          v-model="task.name"
-          @change="modifyTask(task)"
-          :disabled="loading"
-          class="float-left"
-        ></b-form-input>
+        <TaskListItem :task="task" :disabled="loading"></TaskListItem>
       </b-list-group-item>
     </b-list-group>
     <b-button variant="outline-primary" class="mt-3" @click="addTask()">
@@ -32,10 +20,13 @@
 import { mapState } from 'vuex';
 
 import Task from '../models/Task';
+import TaskListItem from '../components/TaskListItemComponent.vue';
 
 export default {
   name: 'task-list',
-  components: {},
+  components: {
+    TaskListItem,
+  },
   data: () => ({
     loading: false,
   }),
