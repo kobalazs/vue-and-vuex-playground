@@ -7,7 +7,7 @@
         v-for="task in tasks"
         :key="task.id"
       >
-        <TaskListItem :task="task" :disabled="loading"></TaskListItem>
+        <TaskListItem :task="task" :disabled="loading" v-on:error="loadTasks()"></TaskListItem>
       </b-list-group-item>
     </b-list-group>
     <b-button variant="outline-primary" class="mt-3" @click="addTask()">

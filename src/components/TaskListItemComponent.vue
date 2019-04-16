@@ -35,8 +35,11 @@ export default {
     modifyTask() {
       this.loading = true;
       this.$store.dispatch('task/modify', this.task)
-        // eslint-disable-next-line
-        .catch(error => window.alert(error))
+        .catch((error) => {
+          // eslint-disable-next-line
+          window.alert(error);
+          this.$emit('error', error);
+        })
         .finally(() => {
           this.loading = false;
         });
