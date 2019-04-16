@@ -12,6 +12,9 @@
       :disabled="waiting"
       class="float-left"
     ></b-form-input>
+    <b-button variant="danger" size="sm" class="float-left ml-2" @click="deleteTask()">
+      Delete
+    </b-button>
   </div>
 </template>
 
@@ -35,6 +38,18 @@ export default {
     modifyTask() {
       this.loading = true;
       this.$store.dispatch('task/modify', this.task)
+        .catch((error) => {
+          // eslint-disable-next-line
+          window.alert(error);
+          this.$emit('error', error);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    deleteTask() {
+      this.loading = true;
+      this.$store.dispatch('task/delete', this.task)
         .catch((error) => {
           // eslint-disable-next-line
           window.alert(error);

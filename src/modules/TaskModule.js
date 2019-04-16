@@ -45,5 +45,17 @@ export default {
         }
       });
     },
+
+    delete(context, task) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          await http().delete(`/task/${task.id}`);
+          await context.dispatch('list');
+          resolve();
+        } catch (error) {
+          reject(error.response.data.error || 'Server Error');
+        }
+      });
+    },
   },
 };
