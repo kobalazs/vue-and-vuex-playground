@@ -12,6 +12,9 @@
       :disabled="waiting"
       class="float-left"
     ></b-form-input>
+    <span class="date float-left ml-2">
+      {{ task.created_at | date('ll') }}
+    </span>
     <b-button variant="danger" size="sm" class="float-left ml-2" @click="deleteTask()">
       Delete
     </b-button>
@@ -62,3 +65,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .date {
+    white-space: nowrap;
+  }
+</style>
