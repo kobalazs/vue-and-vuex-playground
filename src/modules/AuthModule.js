@@ -22,7 +22,7 @@ export default {
           context.commit('setToken', response.data.token);
           resolve();
         }).catch((error) => {
-          reject(error.response.data.error || 'Server Error');
+          reject(error.response.data.message || 'Server Error');
         });
       });
     },

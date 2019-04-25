@@ -17,7 +17,7 @@ export default {
           context.commit('setTasks', response.data);
           resolve();
         }).catch((error) => {
-          reject(error.response.data.error || 'Server Error');
+          reject(error.response.data.message || 'Server Error');
         });
       });
     },
@@ -29,7 +29,7 @@ export default {
           await context.dispatch('list');
           resolve();
         } catch (error) {
-          reject(error.response.data.error || 'Server Error');
+          reject(error.response.data.message || 'Server Error');
         }
       });
     },
@@ -41,7 +41,7 @@ export default {
           await context.dispatch('list');
           resolve();
         } catch (error) {
-          reject(error.response.data.error || 'Server Error');
+          reject(error.response.data.message || 'Server Error');
         }
       });
     },
@@ -53,7 +53,7 @@ export default {
           await context.dispatch('list');
           resolve();
         } catch (error) {
-          reject(error.response.data.error || 'Server Error');
+          reject(error.response.data.message || 'Server Error');
         }
       });
     },

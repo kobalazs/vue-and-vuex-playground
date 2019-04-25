@@ -17,7 +17,7 @@ const createHttpInstance = () => {
       // eslint-disable-next-line no-console
       console.error(error);
 
-      if (['token_invalid', 'token_expired'].includes(error.response.data.error)) {
+      if (error.response.status === 401) {
         store.dispatch('auth/logout').then(() => {
           router.push('/');
         });

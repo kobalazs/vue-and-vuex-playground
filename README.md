@@ -1,5 +1,8 @@
 # vue-and-vuex-playground
 
+Vue.js & Vuex tech demo, implementing a simple Todo app. To use this app, you need to install
+the fitted backend API from here: https://github.com/kobalazs/node-and-express-playground
+
 ## Project setup
 ```
 npm install
