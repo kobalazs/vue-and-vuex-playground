@@ -13,7 +13,7 @@ export default {
   actions: {
     list(context) {
       return new Promise((resolve, reject) => {
-        http().get('/task').then((response) => {
+        http(context).get('/task').then((response) => {
           context.commit('setTasks', response.data);
           resolve();
         }).catch((error) => {
@@ -25,7 +25,7 @@ export default {
     create(context, task) {
       return new Promise(async (resolve, reject) => {
         try {
-          await http().post('/task', task);
+          await http(context).post('/task', task);
           await context.dispatch('list');
           resolve();
         } catch (error) {
@@ -37,7 +37,7 @@ export default {
     modify(context, task) {
       return new Promise(async (resolve, reject) => {
         try {
-          await http().put(`/task/${task.id}`, task);
+          await http(context).put(`/task/${task.id}`, task);
           await context.dispatch('list');
           resolve();
         } catch (error) {
@@ -49,7 +49,7 @@ export default {
     delete(context, task) {
       return new Promise(async (resolve, reject) => {
         try {
-          await http().delete(`/task/${task.id}`);
+          await http(context).delete(`/task/${task.id}`);
           await context.dispatch('list');
           resolve();
         } catch (error) {

@@ -1,11 +1,8 @@
 import axios from 'axios';
 
-import router from './router';
-import store from './store';
-
 let instance;
 
-const createHttpInstance = () => {
+const createHttpInstance = (context) => {
   const http = axios.create({
     baseURL: process.env.VUE_APP_API_ENDPOINT,
     timeout: 1000,
@@ -18,10 +15,9 @@ const createHttpInstance = () => {
       console.error(error);
 
       if (error.response.status === 401) {
-        store.dispatch('auth/logout').then(() => {
-          router.push('/');
-        });
+        context.dispatch('auth/logout', null, { root: true });
       }
+
       return Promise.reject(error);
     },
   );
@@ -29,13 +25,13 @@ const createHttpInstance = () => {
   return http;
 };
 
-export default () => {
+export default (context) => {
   if (!instance) {
-    instance = createHttpInstance();
+    instance = createHttpInstance(context);
   }
 
   // Token can change at any time, so we need to update it for every call!
-  instance.defaults.headers.common.Authorization = `Bearer ${store.state.auth.token}`;
+  instance.defaults.headers.common.Authorization = `Bearer ${context.rootState.auth.token}`;
 
   return instance;
 };

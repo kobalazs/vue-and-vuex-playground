@@ -32,7 +32,15 @@ export default {
   }),
   computed: mapState({
     tasks: state => state.task.tasks,
+    user: state => state.auth.user,
   }),
+  watch: {
+    user(user) {
+      if (!user) {
+        this.$router.push('/login');
+      }
+    },
+  },
   created() {
     this.loadTasks();
   },
